@@ -37,4 +37,12 @@ export class UserService {
   async findByOtp(otp: string) {
     return this.userRepository.findOne({ where: { otp } });
   }
+
+  async updateOtp(email: string, otp: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (!user) {
+      throw new Error('Usuario no encontrado');
+    }
+    await this.userRepository.update(user.id, { otp });
+  }
 }

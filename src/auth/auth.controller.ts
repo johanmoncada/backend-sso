@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { LoginV2Request } from 'src/shared/request/login-v2.request';
 import { LoginV3Request } from 'src/shared/request/login-v3.request';
 import { Public } from 'src/shared/decorators/public.decorator';
+import { OtpEmailRequest } from 'src/shared/request/otp-email.request';
 
 @Controller('api/auth')
 export class AuthController {
@@ -88,5 +89,19 @@ export class AuthController {
     const token = authHeader.replace('Bearer ', '').trim();
     const payload = await this.authService.validateToken(token);
     return res.status(200).json({ message: 'Token válido', payload });
+  }
+
+  @Public()
+  @Post('otp-email')
+  async requestOtpEmail(@Body() request: OtpEmailRequest, @Res() res: Response) {
+    this.logger.log(`Body: ${request.channel} -- ${request.email}`);
+
+    try {
+      // Enviar OTP por email
+      await this.authService.sendOtp(request.channel, request.email);
+      return res.status(200).json({ message: 'OTP enviado por email' });
+    } catch (error) {
+      return res.status(400).json({ message: 'No se pudo enviar el OTP', error: error });
+    }
   }
 }

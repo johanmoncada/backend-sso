@@ -16,5 +16,6 @@ import { notificationConstants } from 'src/shared/constants';
     }),
   ],
   providers: [NotificationsService, EmailService, SmsService, TelegramService, WhatsappService],
+  exports: [NotificationsService],
 })
 export class NotificationsModule {}

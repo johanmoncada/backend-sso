@@ -6,10 +6,12 @@ import { UserModule } from 'src/user/user.module';
 import { AuthGuard } from './auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthController } from './auth.controller';
+import { NotificationsModule } from 'src/notifications/notifications.module';
 
 @Module({
   imports: [
     UserModule,
+    NotificationsModule,
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
