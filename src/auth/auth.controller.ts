@@ -87,6 +87,8 @@ export class AuthController {
       return res.status(401).json({ message: 'No se proporcionó un token Bearer válido.' });
     }
     const token = authHeader.replace('Bearer ', '').trim();
+    console.log('Validating token:', token);
+    console.log('Hora:', new Date().toISOString());
     const payload = await this.authService.validateToken(token);
     return res.status(200).json({ message: 'Token válido', payload });
   }
