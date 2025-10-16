@@ -2,13 +2,13 @@ import { Body, Controller, Delete, Param, Post, Res } from '@nestjs/common';
 import { UserService } from './user.service';
 import type { Response } from 'express';
 import { CreateUserRequest } from 'src/shared/request/create-user.request';
-//import { Public } from 'src/shared/decorators/public.decorator';
+import { Public } from 'src/shared/decorators/public.decorator';
 
 @Controller('api/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  //@Public()
+  @Public()
   @Post()
   async create(@Body() body: CreateUserRequest, @Res() res: Response) {
     try {

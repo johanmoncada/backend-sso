@@ -5,6 +5,14 @@ import { VersioningType } from '@nestjs/common';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: '*', // O especifica el dominio permitido
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: '*',
+    credentials: true,
+  });
+
   app.enableVersioning({
     type: VersioningType.URI,
   });
