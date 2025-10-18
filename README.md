@@ -1,6 +1,6 @@
 # Backend SSO + Notificaciones Multicanal
 
-## Description
+## Johan Moncada - Mauricio Rayo
 
 Este proyecto es un backend de autenticación SSO (Single Sign-On) con soporte para notificaciones multicanal (email, SMS, WhatsApp, Telegram). Utiliza NestJS, TypeORM y MariaDB.
 
