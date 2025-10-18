@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
     const request: Request = context.switchToHttp().getRequest<Request>();
     const token = this.extractTokenFromHeader(request);
     if (!token) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Token inválido o expirado');
     }
     try {
       const payload = await this.jwtService.verifyAsync<{ sub: string; username: string }>(token, {
@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
       });
       request['user'] = payload;
     } catch {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Token inválido o expirado');
     }
     return true;
   }
