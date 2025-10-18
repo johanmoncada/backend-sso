@@ -76,7 +76,7 @@ export class AuthController {
   async validateTokenV1(@Body('token') token: string, @Res() res: Response) {
     this.logger.log(`Validando token: ${token}`);
     const payload = await this.authService.validateToken(token);
-    return res.status(200).json({ message: 'Token válido', payload });
+    return res.status(200).json({ message: 'Token válido', valid: true, payload });
   }
 
   @Public()
@@ -90,7 +90,7 @@ export class AuthController {
     console.log('Validating token:', token);
     console.log('Hora:', new Date().toISOString());
     const payload = await this.authService.validateToken(token);
-    return res.status(200).json({ message: 'Token válido', payload });
+    return res.status(200).json({ message: 'Token válido', valid: true, payload });
   }
 
   @Public()
