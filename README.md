@@ -6,30 +6,88 @@ Este proyecto es un backend de autenticación SSO (Single Sign-On) con soporte p
 
 [NestJS](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Requisitos
-
-- **Node.js** v20.x o superior
-- **MariaDB** (o compatible con MySQL)
-
-## Estructura de módulos
-
-- `auth` — Autenticación y validación de tokens
-- `user` — Gestión de usuarios
-- `notifications` — Envío multicanal
-- `process` — Endpoints protegidos
-- `database` — Conexión y configuración de MariaDB
-- `shared` — Utilidades y constantes
-
 ## Documentación
 
 - [NestJS Docs](https://docs.nestjs.com/)
 - [TypeORM Docs](https://typeorm.io/)
 - [MariaDB Docs](https://mariadb.com/kb/en/)
 
+## Requisitos
+
+- Node.js: 18 LTS o 20 LTS
+- MariaDB 10.6+ (o compatible MySQL)
+- npm 9+
+
+## Tecnologías
+
+- NestJS, TypeScript
+- JWT (@nestjs/jwt), Passport
+- TypeORM (MariaDB)
+- Notificaciones:
+  - Email: MailerSend SDK
+  - Telegram: nestjs-telegraf
+  - SMS/WhatsApp: servicios base listos para integrar
+
+## Estructura del proyecto
+
+```bash
+src/
+  app.module.ts
+  main.ts
+  auth/
+    auth.controller.ts
+    auth.guard.ts
+    auth.module.ts
+    auth.service.ts
+  database/
+    database.module.ts
+  notifications/
+    notifications.controller.ts
+    notifications.module.ts
+    notifications.service.ts
+    channels/
+      email.service.ts
+      sms.service.ts
+      telegram.service.ts
+      whatsapp.service.ts
+  process/
+    process.controller.ts
+    process.module.ts
+    process.service.ts
+  shared/
+    constants.ts
+    shared.module.ts
+    utils.ts
+    decorators/
+      public.decorator.ts
+    interface/
+      jwtpayload.ts
+    request/
+      create-user.request.ts
+      login-v1.request.ts
+      login-v2.request.ts
+      login-v3.request.ts
+      otp-email.request.ts
+    response/
+  user/
+    user.controller.ts
+    user.entity.ts
+    user.module.ts
+    user.service.ts
+```
+
 ## Instalación
 
 ```bash
 npm install
+```
+
+## Ejecutar en desarrollo
+
+```bash
+npx nest start --watch
+# o si tienes script:
+# npm run start:dev
 ```
 
 ## Comandos para ejecutar la app
@@ -61,6 +119,12 @@ SMTP_PORT=587
 SMTP_USER=tu_usuario
 SMTP_PASS=tu_contraseña
 ```
+
+## Seguridad
+
+- JWT expira en 120s (2 minutos). Manejo explícito de `TokenExpiredError`.
+- No expongas `JWT_SECRET` ni API keys en el repositorio.
+- Ajusta CORS (origin) en producción y limita métodos/headers.
 
 ## Endpoints principales
 
