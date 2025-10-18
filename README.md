@@ -227,10 +227,41 @@ curl --location --request POST 'http://localhost:3000/v2/api/auth/validate' \
 
 ---
 
-### Notificaciones
+## Notificaciones
 
-- **Enviar notificación:** `POST /api/notifications` — Email, SMS, WhatsApp, Telegram
+### `POST /api/notifications` — Enviar header `Authorization: Bearer <token>`
+
+- chanel: email | telegram | sms | whatsapp
+
+```bash
+curl --location 'http://localhost:3000/api/notifications' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "channel": "email",
+    "to": "johan.moncadat@gmail.com",
+    "subject": "Prueba SSO Email",
+    "message": "Se esta realizando una prueba de envio de email desde NestJS"
+}'
+```
+
+---
 
 ### Procesos protegidos
 
-- **Ejemplo:** `GET /api/v1/process` — Requiere JWT válido
+### `POST /v1/api/process/restricted` — Enviar header `Authorization: Bearer <token>`
+
+```bash
+curl --location --request POST 'http://localhost:3000/v1/api/process/restricted' \
+--header 'Authorization: <tu_token_jwt>'
+```
+
+---
+
+### `POST /v2/api/process/restricted` — Enviar header `Authorization: Bearer <token>`
+
+```bash
+curl --location --request POST 'http://localhost:3000/v2/api/process/restricted' \
+--header 'Authorization: <tu_token_jwt>'
+```
+
+---
